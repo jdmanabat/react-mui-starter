@@ -5,7 +5,7 @@ import PageLayout from '../../templates/PageLayout';
 
 export default function AboutPage() {
   return (
-    <PageLayout test-dataid="about-page">
+    <PageLayout title="About" test-dataid="about-page">
       <Typography component="h1">About Page</Typography>
     </PageLayout>
   );
