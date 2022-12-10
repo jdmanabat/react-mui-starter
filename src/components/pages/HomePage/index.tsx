@@ -6,7 +6,7 @@ import Counter from '../../molecules/Counter';
 
 export default function HomePage() {
   return (
-    <PageLayout test-dataid="home-page">
+    <PageLayout title="Home" test-dataid="home-page">
       <Typography component="h1">Home Page</Typography>
       <Counter />
     </PageLayout>
