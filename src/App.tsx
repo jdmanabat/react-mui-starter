@@ -1,35 +1,49 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import './App.css';
+import React from 'react';
+import { Box, Button, Link, Typography } from '@mui/material';
 import Test from './components/atoms/Test';
 
+import reactLogo from './assets/react.svg';
+import './App.css';
+
+import { decrement, increment } from './features/counter/counterSlice';
+import { useAppDispatch, useAppSelector } from './app/hooks';
+
 function App() {
-  const [count, setCount] = useState(0);
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
+    <Box className="App">
+      <Box>
+        <Link href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
+        </Link>
+        <Link href="https://reactjs.org" target="_blank" rel="noreferrer">
           <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
+        </Link>
+      </Box>
+      <Typography component="h1"> Count is {count}</Typography>
+      <Box className="card">
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+          <Button variant="contained" onClick={() => dispatch(increment())}>
+            Increment
+          </Button>
+
+          <Button variant="contained" onClick={() => dispatch(decrement())}>
+            Decrement
+          </Button>
+        </Box>
+        <Typography
+          sx={{
+            mt: 2,
+          }}
+        >
           Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p className="read-the-docs">Hello world</p>
-    </div>
+        </Typography>
+      </Box>
+      <Typography>Click on the Vite and React logos to learn more</Typography>
+      <Test />
+    </Box>
   );
 }
 
