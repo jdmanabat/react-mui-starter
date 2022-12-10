@@ -1,50 +1,23 @@
 import React from 'react';
-import { Box, Button, Link, Typography } from '@mui/material';
-import Test from './components/atoms/Test';
+import { Box, CircularProgress } from '@mui/material';
+import { Routes, Route } from 'react-router-dom';
 
-import reactLogo from './assets/react.svg';
-import './App.css';
+const HomePage = React.lazy(() => import('./components/pages/HomePage'));
+const AboutPage = React.lazy(() => import('./components/pages/AboutPage'));
 
-import { decrement, increment } from './features/counter/counterSlice';
-import { useAppDispatch, useAppSelector } from './app/hooks';
-
-function App() {
-  const count = useAppSelector((state) => state.counter.value);
-  const dispatch = useAppDispatch();
-
+export default function App() {
   return (
-    <Box className="App">
-      <Box>
-        <Link href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </Link>
-        <Link href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </Link>
-      </Box>
-      <Typography component="h1"> Count is {count}</Typography>
-      <Box className="card">
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
-          <Button variant="contained" onClick={() => dispatch(increment())}>
-            Increment
-          </Button>
-
-          <Button variant="contained" onClick={() => dispatch(decrement())}>
-            Decrement
-          </Button>
+    <React.Suspense
+      fallback={
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress />
         </Box>
-        <Typography
-          sx={{
-            mt: 2,
-          }}
-        >
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </Typography>
-      </Box>
-      <Typography>Click on the Vite and React logos to learn more</Typography>
-      <Test />
-    </Box>
+      }
+    >
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+      </Routes>
+    </React.Suspense>
   );
 }
-
-export default App;
